@@ -10,10 +10,14 @@ class Square extends Shape {
   draw(context) {
     context.fillStyle = this.color;
     context.fillRect(
-      this.center.x - this.side/2,
-      this.center.y - this.side/2,
+      this.center.x - this.side / 2,
+      this.center.y - this.side / 2,
       this.side,
       this.side
     );
+  }
+
+  get collision_radius() {
+    return this.side / 2;
   }
 }

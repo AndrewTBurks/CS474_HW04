@@ -6,6 +6,16 @@ const factory = new ShapeFactory({
 });
 
 let shapes = scene.map(factory.create);
+shapes.forEach(s => {
+  let angle = Math.random() * Math.PI * 2;
+
+  let direction = {
+    vx: Math.cos(angle),
+    vy: Math.sin(angle)
+  };
+
+  s.direction = direction;
+});
 
 let canvas = document.getElementById("drawarea");
 let context = canvas.getContext("2d");
@@ -41,12 +51,13 @@ window.onresize = function() {
 };
 
 let animation = null;
-let lastTimestamp;
+let lastTimestamp = null;
 
 window.onclick = function() {
   if (animation) {
     cancelAnimationFrame(animation);
     animation = null;
+    lastTimestamp = null;
   } else {
     animation = requestAnimationFrame(animate);
   }
@@ -60,9 +71,36 @@ function animate(timestamp) {
   let offset = timestamp - lastTimestamp;
 
   shapes.forEach(s => {
-    let {x, y} = s.position;
+    let { x, y } = s.position;
+    let {vx, vy} = s.direction;
 
-    let position = { x: (x + 0.1 * offset) % size.x, y: (y + 0.2 * offset) % size.y };
+    let rad = s.collision_radius;
+
+    let position = { x: (x + (vx * s.speed * offset)), y: (y + (vy * s.speed * offset))};
+
+    // add collision and bouncing
+    if (position.x - rad <= 0 && vx < 0) {
+      s.direction = {
+        vx: -vx,
+        vy
+      };
+    } else if (position.x + rad >= size.x && vx > 0) {
+      s.direction = {
+        vx: -vx,
+        vy
+      };
+    } else if (position.y - rad <= 0 && vy < 0) {
+      s.direction = {
+        vx,
+        vy: -vy
+      };
+    } else if(position.y + rad >= size.y && vy > 0) {
+      s.direction = {
+        vx,
+        vy: -vy
+      };
+    }
+
     s.position = position;
   });
 

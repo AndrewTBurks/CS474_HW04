@@ -13,4 +13,8 @@ class Circle extends Shape {
     context.fillStyle = this.color;
     context.fill();
   }
+
+  get collision_radius() {
+    return this.radius;
+  }
 }
