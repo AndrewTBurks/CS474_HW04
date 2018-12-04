@@ -1,12 +1,16 @@
+"use strict";
+
 class Square extends Shape {
   constructor(spec) {
     super(spec);
 
+    // default sidelength of 10
     let { side = 10 } = spec;
 
     this.side = side;
   }
 
+  // method to draw a square on a canvas context
   draw(context) {
     context.fillStyle = this.color;
     context.fillRect(
@@ -17,6 +21,7 @@ class Square extends Shape {
     );
   }
 
+  // collision_radius getter
   get collision_radius() {
     return this.side / 2;
   }

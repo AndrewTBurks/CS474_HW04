@@ -1,3 +1,5 @@
+"use strict";
+
 class Shape {
   constructor({ center = { x: 0, y: 0 }, color = "blue", ...spec }) {
     // all shapes have color and center location
@@ -22,10 +24,12 @@ class Shape {
     );
   }
 
+  // getter for position
   get position() {
     return this.center;
   }
 
+  // setter for position
   set position(position) {
     this.center = position;
   }
