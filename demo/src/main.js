@@ -63,6 +63,12 @@ window.onclick = function() {
   }
 }
 
+window.onblur = function() {
+  cancelAnimationFrame(animation);
+  animation = null;
+  lastTimestamp = null;
+}
+
 function animate(timestamp) {
   if (!lastTimestamp) { 
     lastTimestamp = timestamp;
