@@ -2,8 +2,8 @@
 
 // set the type:Class mapping
 const factory = new ShapeFactory({
-  circle: Circle,
-  square: Square
+  "circle": Circle,
+  "square": Square
 });
 
 // create the shapes from the scene
